@@ -1,26 +1,276 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Photosynthesis — Sprout design system
+   One device: the growth scale (dormant → radiant) reused for
+   health, progress, carbon impact, and collective savings.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette */
+  --canopy: #16312a; /* primary ink, deep UI */
+  --moss: #355e3b; /* secondary deep green */
+  --pine: #0b6e45; /* primary action — AA on white */
+  --leaf: #1fae6e; /* living accent: progress, glow, thriving */
+  --sprout: #8ad96b; /* young-leaf highlight */
+  --sun: #f2a93b; /* streaks, rewards, energy */
+  --ember: #e26d4f; /* high-carbon impact — warm, not alarm */
+
+  /* Neutrals (tinted toward soil, never cold grey) */
+  --ink: #16312a;
+  --ink-2: #4a5c50;
+  --ink-3: #5f6f63;
+  --line: #e3e6dc;
+  --mist: #ecefe6;
+  --surface: #ffffff;
+  --paper: #f5f7f0;
+
+  /* Growth scale — the signature, 5 stops */
+  --g0: #c2cdb8; /* Dormant  — empty, disabled */
+  --g1: #9fd27a; /* Waking   — first action */
+  --g2: #5fc079; /* Growing  — on track */
+  --g3: #28b06f; /* Thriving — streak alive */
+  --g4: #0b7d4e; /* Radiant  — levelled up */
+  --growth: linear-gradient(90deg, var(--g0), var(--g1), var(--g2), var(--g3), var(--g4));
+
+  /* Radius */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-pill: 999px;
+
+  /* Elevation — green-tinted, soft */
+  --e1: 0 1px 2px rgba(22, 49, 42, 0.05);
+  --e2: 0 6px 20px rgba(22, 49, 42, 0.07), 0 1px 3px rgba(22, 49, 42, 0.05);
+  --e3: 0 16px 48px rgba(22, 49, 42, 0.12);
+  --glow: 0 0 48px rgba(31, 174, 110, 0.34);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --d1: 120ms;
+  --d2: 220ms;
+  --d3: 380ms;
+
+  /* Back-compat aliases used across existing components */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --honey: var(--sun);
 }
 
+/* Expose tokens to Tailwind utilities (bg-pine, text-canopy, font-data, …). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-canopy: var(--canopy);
+  --color-moss: var(--moss);
+  --color-pine: var(--pine);
+  --color-leaf: var(--leaf);
+  --color-sprout: var(--sprout);
+  --color-sun: var(--sun);
+  --color-honey: var(--sun);
+  --color-ember: var(--ember);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-mist: var(--mist);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-display-src), "Segoe UI", system-ui, sans-serif;
+  --font-body: var(--font-body-src), system-ui, sans-serif;
+  --font-data: var(--font-data-src), ui-monospace, "Consolas", monospace;
+  --font-sans: var(--font-body-src), system-ui, sans-serif;
+  --font-mono: var(--font-data-src), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(90% 50% at 100% 0%, #e6f1dd 0%, transparent 60%),
+    radial-gradient(80% 50% at 0% 100%, #e2efe6 0%, transparent 55%),
+    var(--paper);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body-src), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display-src), "Segoe UI", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Every measured number reads like an instrument. */
+.font-data {
+  font-family: var(--font-data-src), ui-monospace, monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ---- Surfaces (reskinned to tokens, names kept for back-compat) ---- */
+.clay {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--e2);
+}
+
+.clay-sunk {
+  border-radius: var(--r-lg);
+  background: var(--mist);
+  box-shadow: inset 0 2px 6px rgba(22, 49, 42, 0.08);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--r-pill);
+  font-family: var(--font-body-src), system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.7rem 1.15rem;
+  transition:
+    transform var(--d1) var(--ease),
+    box-shadow var(--d2) var(--ease),
+    filter var(--d1) var(--ease);
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn:focus-visible {
+  outline: 3px solid var(--leaf);
+  outline-offset: 2px;
+}
+
+/* Primary — the one real next action per screen. Pine passes AA on white. */
+.btn-primary {
+  background: var(--pine);
+  color: #fff;
+  box-shadow: var(--e2);
+}
+.btn-primary:hover {
+  box-shadow: var(--e2), var(--glow);
+}
+
+/* Soft — secondary moves. */
+.btn-soft {
+  background: var(--mist);
+  color: var(--canopy);
+}
+.btn-soft:hover {
+  filter: brightness(0.98);
+}
+
+/* Ghost — tertiary (e.g. Share). */
+.btn-ghost {
+  background: transparent;
+  color: var(--moss);
+  border: 1px solid var(--line);
+}
+
+/* Back-compat: existing .clay-btn maps to the primary button. */
+.clay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--r-pill);
+  background: var(--pine);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: var(--e2);
+  transition:
+    transform var(--d1) var(--ease),
+    box-shadow var(--d2) var(--ease);
+}
+.clay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--e2), var(--glow);
+}
+.clay-btn:active {
+  transform: scale(0.98);
+}
+.clay-btn:focus-visible {
+  outline: 3px solid var(--leaf);
+  outline-offset: 2px;
+}
+
+/* ---- Pills & chips ---- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: var(--r-pill);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Honesty pattern: any mock data wears this in plain language. */
+.chip-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: var(--r-pill);
+  padding: 0.12rem 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--canopy);
+  color: #eafaf1;
+}
+
+/* ---- Growth-scale bar — same gradient as the creature, on purpose ---- */
+.growth-track {
+  height: 0.625rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--mist);
+}
+.growth-fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--growth);
+  transition: width var(--d3) var(--ease);
+}
+
+/* Impact-tier dots (always paired with an icon/label in markup). */
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+.dot-low {
+  background: var(--leaf);
+}
+.dot-mod {
+  background: var(--sun);
+}
+.dot-high {
+  background: var(--ember);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .clay-btn,
+  .growth-fill {
+    transition: none;
+  }
+  .btn:hover,
+  .clay-btn:hover {
+    transform: none;
+  }
 }

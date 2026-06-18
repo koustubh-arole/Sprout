@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sprout — Status & Product Roadmap</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #1c2024; line-height: 1.5; font-size: 10.6pt; margin: 0;
+  }
+  h1, h2, h3, h4, .tag, .chip, th, .kpi-n, .badge { font-family: "Segoe UI", Helvetica, Arial, sans-serif; }
+  h1 { font-size: 23pt; margin: 0 0 4px; color: #0f3d2e; letter-spacing: -0.3px; }
+  .sub { font-size: 11pt; color: #4b5563; margin: 0 0 2px; font-family: "Segoe UI", Arial, sans-serif; }
+  .meta { font-size: 8.6pt; color: #8a8f98; font-family: "Segoe UI", Arial, sans-serif; }
+  h2 {
+    font-size: 14pt; color: #0f3d2e; margin: 26px 0 8px; padding-bottom: 5px;
+    border-bottom: 2px solid #cfe6d8;
+  }
+  h3 { font-size: 11.4pt; color: #14533d; margin: 16px 0 5px; }
+  h4 { font-size: 10pt; color: #335; margin: 12px 0 3px; }
+  p { margin: 6px 0; }
+  ul, ol { margin: 6px 0 6px 0; padding-left: 18px; }
+  li { margin: 3px 0; }
+  strong { color: #11271f; }
+  code { font-family: "Consolas", monospace; font-size: 9pt; background: #eef2f0; padding: 0 3px; border-radius: 3px; color: #0f3d2e; }
+  .lead { font-size: 11pt; color: #2b3640; }
+  .rule { height: 2px; background: #0f3d2e; border: 0; margin: 10px 0 0; }
+
+  .banner {
+    background: linear-gradient(100deg, #103d2e, #1d6b4a);
+    color: #eafaf1; padding: 20px 22px; border-radius: 12px; margin-bottom: 6px;
+  }
+  .banner h1 { color: #fff; }
+  .banner .sub { color: #bfe9d2; }
+  .banner .meta { color: #8fc9ac; }
+
+  .tag {
+    display: inline-block; font-size: 7.6pt; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .5px; padding: 2px 7px; border-radius: 20px; margin-right: 5px;
+  }
+  .t-done { background: #d6f0e0; color: #16643f; }
+  .t-mock { background: #fde9cf; color: #8a4b13; }
+  .t-todo { background: #e4e7ec; color: #44474d; }
+  .t-risk { background: #fbdada; color: #8a1c1c; }
+
+  table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 9.2pt; }
+  th { background: #103d2e; color: #fff; text-align: left; padding: 6px 8px; font-size: 8.6pt; }
+  td { padding: 5px 8px; border-bottom: 1px solid #e4eae7; vertical-align: top; }
+  tr:nth-child(even) td { background: #f6faf8; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card {
+    border: 1px solid #dbe5e0; border-radius: 9px; padding: 10px 12px; background: #fbfdfc;
+    break-inside: avoid;
+  }
+  .card h4 { margin-top: 0; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0; }
+  .kpi { border: 1px solid #dbe5e0; border-radius: 9px; padding: 9px 10px; text-align: center; background: #f5faf7; }
+  .kpi-n { font-size: 16pt; font-weight: 800; color: #14533d; font-family: "Segoe UI", Arial; }
+  .kpi-l { font-size: 7.8pt; color: #5b6168; text-transform: uppercase; letter-spacing: .4px; }
+
+  .callout { border-left: 4px solid #1d6b4a; background: #f0f7f3; padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+  .warn { border-left-color: #c2410c; background: #fef4ec; }
+  .note { font-size: 9pt; color: #5b6168; }
+
+  section { break-inside: auto; }
+  h2 { break-after: avoid; }
+  h3 { break-after: avoid; }
+  .card, .kpi, table { break-inside: avoid; }
+  .pagebreak { break-before: page; }
+  .foot { margin-top: 8px; font-size: 8pt; color: #9aa0a6; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>Sprout — Status &amp; Product Roadmap</h1>
+  <p class="sub">From hackathon MVP to a robust, research-grounded product</p>
+  <p class="meta">Prompt Wars Virtual Challenge 3 · "Create behaviour, not just awareness." · Internal briefing · 17 June 2026</p>
+</div>
+
+<h2 style="border:0; margin-top:14px;">1 · Executive summary</h2>
+<p class="lead">
+  Sprout has moved well beyond the original "living world + nudge" MVP. It is now a
+  <strong>virtual-companion (creature) carbon platform</strong>: you adopt and name a creature, perform
+  <strong>one verified high-impact green action a day</strong>, and watch the creature grow, level up, and
+  thrive — backed by streaks, collectibles, commitment pacts, a social grove (leaderboard), sponsor
+  challenges, a community blog, and an AI coach + chat. The build is a client-first Next.js web app with a
+  clean <em>data seam</em> that already anticipates a real backend.
+</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="kpi-n">~30</div><div class="kpi-l">Source modules</div></div>
+  <div class="kpi"><div class="kpi-n">7</div><div class="kpi-l">Test suites (pure logic)</div></div>
+  <div class="kpi"><div class="kpi-n">5</div><div class="kpi-l">App routes / tabs</div></div>
+  <div class="kpi"><div class="kpi-n">2</div><div class="kpi-l">LLM providers + fallback</div></div>
+</div>
+
+<div class="callout">
+  <strong>Where we stand:</strong> the <em>experience</em> is feature-complete and demo-ready; the
+  <em>credibility &amp; durability</em> layer is not. The social proof (leaderboard, friends, challenges,
+  profile rank) and the activity verification are still <strong>mock</strong>. The single biggest leap from
+  "MVP" to "product" is replacing those mocks with real accounts + backend behind the existing data seam,
+  and replacing mock verification with real photo AI — without changing any component code.
+</div>
+
+<h2>2 · What is implemented today</h2>
+
+<h3>2.1 Tech stack</h3>
+<table>
+  <tr><th>Layer</th><th>Choice</th><th>Notes</th></tr>
+  <tr><td>Framework</td><td>Next.js 16.2.9 (App Router) · React 19</td><td>Web-first, the hackathon hard constraint</td></tr>
+  <tr><td>Language / styling</td><td>TypeScript · Tailwind v4</td><td>Custom "clay" soft-UI utility</td></tr>
+  <tr><td>State</td><td>Zustand v5 + <code>persist</code></td><td>localStorage key <code>sprout-world-v2</code>, hydration-safe</td></tr>
+  <tr><td>Animation</td><td>Framer Motion v12</td><td>Reduced-motion respected throughout</td></tr>
+  <tr><td>AI</td><td>Gemini Flash (default) / Groq (swap) over REST</td><td>Server-only key; deterministic fallback</td></tr>
+  <tr><td>Testing</td><td>Vitest + Testing Library + jsdom</td><td>Pure-logic suites green</td></tr>
+  <tr><td>Data seam</td><td><code>lib/data</code> interface</td><td>Mock today; Supabase/vision planned in-code</td></tr>
+</table>
+
+<h3>2.2 Feature inventory</h3>
+<table>
+  <tr><th>Area</th><th>What's built</th><th>Status</th></tr>
+  <tr><td>Onboarding</td><td>Adopt + name a creature, pick a variant</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Emotional core</td><td>Creature companion with moods/tints/levels; plus a rich health-driven Living World SVG (clouds, fireflies, smog haze, bloom/wilt bursts, optional sound)</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Daily behaviour</td><td>Daily Ritual: one verified high-impact action/day with photo + AI verdict; heals the creature</td><td><span class="tag t-done">Done</span> <span class="tag t-mock">Verify=mock</span></td></tr>
+  <tr><td>Point-of-decision nudge</td><td>"Simulate a choice" sandbox: meal/commute/cooling/trip, options ordered low→high with carbon shown <em>before</em> choosing + impact badges</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Footprint &amp; insight</td><td>Totals, relatable equivalents (km / AC-hrs / ₹ / phone / tree-days), category breakdown</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Normative social proof</td><td>"vs the average Indian" descriptive-norm bars</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Gamification</td><td>Points, levels, savedKg, streaks, badges, collectibles + seed-pack variable reward</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Commitment</td><td>Pacts (with a friend) — commitment device</td><td><span class="tag t-done">Done</span> <span class="tag t-mock">local</span></td></tr>
+  <tr><td>Social / collective</td><td>Grove leaderboard (global/friends/company), sponsor Challenges</td><td><span class="tag t-mock">Mock data</span></td></tr>
+  <tr><td>Community</td><td>Blog (seeded + user posts)</td><td><span class="tag t-done">Done</span> <span class="tag t-mock">local</span></td></tr>
+  <tr><td>Profile</td><td>"You" tab: badges, rank summary</td><td><span class="tag t-mock">Mock rank</span></td></tr>
+  <tr><td>AI</td><td>Coach (one-shot next-best-action) + conversational CoachChat; never invents factors</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Sharing</td><td>OG "world card" image route + Web-Share/clipboard snapshot</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Transparency</td><td>Methodology page; hope-not-guilt framing</td><td><span class="tag t-done">Done</span></td></tr>
+  <tr><td>Accessibility</td><td>Live regions, role/aria, keyboard, non-color status, reduced-motion</td><td><span class="tag t-done">Strong</span></td></tr>
+</table>
+
+<h3>2.3 Information architecture</h3>
+<p>
+  Five tabs: <strong>World</strong> (companion + daily ritual + coach), <strong>Grove</strong> (leaderboard),
+  <strong>Pacts</strong> (challenges), <strong>Blog</strong>, <strong>You</strong> (profile). The decision-moment
+  + footprint simulator is intentionally demoted to a "Curious? Simulate a choice" sandbox so the
+  <em>companion</em> is the hero — the felt, emotional experience the brief rewards.
+</p>
+
+<h2 class="pagebreak">3 · How it honours the research thesis</h2>
+<p>The deep-research report identified three evidence-backed levers and a set of failure modes. Sprout maps onto all three:</p>
+<table>
+  <tr><th>Research lever / finding</th><th>How Sprout implements it</th></tr>
+  <tr><td><strong>Emotional "living" visualization + loss aversion</strong> (Forest, Ant Forest)</td><td>The creature/world flourishes or wilts with behaviour; always <em>redeemable</em> (never permanent death) to avoid eco-guilt backlash</td></tr>
+  <tr><td><strong>Point-of-decision nudges</strong> (JAMA: 23% shift)</td><td>Options ordered low→high with carbon shown before choosing; red "High impact" badge (negative framing on specific choices)</td></tr>
+  <tr><td><strong>Social / collective accountability</strong> (OPower, dorm comps)</td><td>Grove leaderboard, friend pacts, sponsor challenges, normative "vs average" bars <span class="tag t-mock">backend pending</span></td></tr>
+  <tr><td><strong>Translate CO₂ into relatable terms</strong></td><td>km driven, AC-hours, ₹, phone charges, tree-days — India-flavoured</td></tr>
+  <tr><td><strong>Few high-impact actions</strong> (Wynes &amp; Nicholas)</td><td>One daily ritual, steered to diet/transport/energy/flights — not trivial actions</td></tr>
+  <tr><td><strong>AI as translator/coach, not the product</strong></td><td>Coach phrases pre-computed numbers; never invents factors; graceful fallback</td></tr>
+  <tr><td><strong>Hope not guilt; honesty hook</strong></td><td>"Built for behaviour and hope, not guilt"; methodology disclosure</td></tr>
+</table>
+
+<h2>4 · Honest gaps, risks &amp; what could go wrong</h2>
+<div class="grid2">
+  <div class="card">
+    <h4><span class="tag t-risk">Risk</span> Mock social layer reads as "fake"</h4>
+    <p class="note">Leaderboard, friends, challenges and profile rank are static mock data. A sharp judge or real user will notice there are no real people. Credibility hit if presented as live.</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-risk">Risk</span> Mock verification = integrity gap</h4>
+    <p class="note">"Verified" green actions are a plausibility stub, not real photo AI. The whole "verified behaviour" promise rests on this. Must be clearly labelled until Phase C.</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-risk">Risk</span> No accounts / single-device</h4>
+    <p class="note">All state is localStorage. There is no auth, no cross-device sync, and a "leaderboard" cannot be genuinely social without real users.</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-risk">Risk</span> Client-clock streaks are spoofable</h4>
+    <p class="note">Streak/daily-care logic trusts the device clock; trivially gamed. Needs server-side time + anti-cheat for any real competition.</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-todo">Gap</span> Photos as data-URLs in localStorage</h4>
+    <p class="note">Bloats storage, no real upload/storage, lost on clear. Needs object storage.</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-todo">Gap</span> Test depth</h4>
+    <p class="note">Pure logic is tested; the new adopt → ritual → reward flows have no component/e2e coverage.</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-todo">Gap</span> Hollow-reward trap</h4>
+    <p class="note">Collectibles/points don't yet connect to real-world impact (the failure the research flagged: "points that lead nowhere").</p>
+  </div>
+  <div class="card">
+    <h4><span class="tag t-todo">Gap</span> Retention mechanics</h4>
+    <p class="note">No recurring weekly feedback or "you vs your past self" — both strongly evidence-backed against novelty decay.</p>
+  </div>
+</div>
+
+<h2 class="pagebreak">5 · Evaluation readiness (hackathon axes)</h2>
+<table>
+  <tr><th>Axis</th><th>State</th><th>Action before submit</th></tr>
+  <tr><td>Web app</td><td><span class="tag t-done">Met</span></td><td>—</td></tr>
+  <tr><td>Deployed link works (14-day manual eval)</td><td><span class="tag t-todo">Pending</span></td><td>Deploy to Vercel; verify in incognito; client-first core means it can't break on backend sleep</td></tr>
+  <tr><td>GitHub repo + security</td><td><span class="tag t-done">Good</span></td><td>Key server-only, <code>.env.example</code> present, <code>.env*</code> ignored — confirm no key in client bundle</td></tr>
+  <tr><td>AI-tool usage documented</td><td><span class="tag t-todo">Pending</span></td><td>README narrative + LinkedIn post (tool choice, prompt flow, architecture)</td></tr>
+  <tr><td>Testing</td><td><span class="tag t-mock">Partial</span></td><td>Add 1–2 component/e2e smoke tests</td></tr>
+  <tr><td>Accessibility</td><td><span class="tag t-done">Strong</span></td><td>Spot-check new tabs for keyboard + contrast</td></tr>
+  <tr><td>Problem-statement alignment</td><td><span class="tag t-done">Met</span></td><td>understand / track / reduce / personalised insights all visibly present</td></tr>
+  <tr><td>Graceful degradation</td><td><span class="tag t-done">Met</span></td><td>LLM fallback; no backend on critical path</td></tr>
+</table>
+
+<h2>6 · MVP → Product roadmap</h2>
+
+<h3>Phase A — Harden &amp; ship (submission-critical, days)</h3>
+<ul>
+  <li>Run <code>typecheck</code> + <code>lint</code> + <code>test:run</code> + <code>build</code> clean; fix any failures.</li>
+  <li><strong>Transparently label all mock data</strong> in-UI (a small "demo data" chip) so simulated social proof never reads as deceptive.</li>
+  <li>Add component/e2e smoke tests for <em>adopt → daily ritual → reward → streak</em>.</li>
+  <li>Deploy to Vercel; verify deployed link in incognito; confirm no API key in client bundle.</li>
+  <li>Write README (architecture + AI-tool + prompt-flow narrative) and the LinkedIn post.</li>
+</ul>
+
+<h3>Phase B — Real backend &amp; accounts (the biggest leap)</h3>
+<ul>
+  <li>Add <strong>Supabase auth + Postgres</strong>; implement <code>lib/data/supabase.ts</code> behind the existing <code>SproutData</code> seam — <em>components don't change</em>.</li>
+  <li>Real leaderboard / friends / pacts / profile rank; invite codes for <strong>hostel-floor &amp; office-team</strong> groups (maps to dorm-competition evidence).</li>
+  <li><strong>Server-side time &amp; streak validation</strong> + rate-limits (anti-cheat) so competition is credible.</li>
+  <li>Photo upload to Supabase Storage; Row-Level Security on all tables.</li>
+  <li>Keep client-first fallback so the deployed link still degrades gracefully.</li>
+</ul>
+
+<h3>Phase C — Real verification &amp; smarter AI</h3>
+<ul>
+  <li>Replace mock <code>verifyActivity</code> with <strong>Gemini vision</strong> photo verification (the integrity core).</li>
+  <li><strong>RAG-ground the coach</strong> on the curated India factor table to hard-stop hallucinated numbers.</li>
+  <li>Personalised <strong>weekly recap</strong> (the recurring-feedback lever) + the app's own AI-footprint disclosure (honesty hook).</li>
+</ul>
+
+<h3>Phase D — Retention, scale &amp; impact</h3>
+<ul>
+  <li><strong>Recurring weekly feedback</strong> + <strong>"you vs your past self"</strong> trend (self-comparison ≈14% reductions, sometimes beats neighbour comparison).</li>
+  <li><strong>Real-world impact reward</strong>: tie collectibles/points to a verified tree-planting partner so rewards aren't hollow (Ant Forest / Forest model; treat offsets as last-resort, not core).</li>
+  <li>Co-op play (co-raise a creature, help a friend's streak) — Ant Forest's sustained-engagement mechanic.</li>
+  <li>Accuracy upgrade: Climatiq/DEFRA-backed factors with disclosed vintage + uncertainty ranges; PWA + offline; Hindi/regional i18n; email/push nudges; retention analytics; B2B campus/office + verified-impact sponsor challenges (monetization).</li>
+</ul>
+
+<h2 class="pagebreak">7 · Research-backed changes to prioritise</h2>
+<table>
+  <tr><th>Evidence</th><th>Concrete change in Sprout</th><th>Priority</th></tr>
+  <tr><td>Novelty decays in ~4–6 weeks; effects decay without recurring feedback (OPower re-spike)</td><td>Weekly creature "report card" + nudge; streak insurance for one missed day</td><td>High</td></tr>
+  <tr><td>Self-comparison ≈14% cuts, can beat neighbour comparison</td><td>Add "you vs last week" trend alongside "vs average"</td><td>High</td></tr>
+  <tr><td>Hollow rewards kill retention</td><td>Connect points to real verified impact (tree partner)</td><td>High</td></tr>
+  <tr><td>Self-reported ≠ measured behaviour (EAST/BIT)</td><td>Real photo/sensor verification; honest "estimated" labels until then</td><td>High</td></tr>
+  <tr><td>High-impact actions are concentrated</td><td>Bias the daily ritual + coach to diet/transport/energy/flights; show the multiplier vs trivial actions</td><td>Med</td></tr>
+  <tr><td>Greenwashing / individual-blame critique (BP origin)</td><td>Add a civic/systemic action category + transparent AI-footprint disclosure</td><td>Med</td></tr>
+  <tr><td>Ant Forest social play drives sustained use</td><td>Co-raise / help-a-friend mechanics on top of pacts</td><td>Med</td></tr>
+  <tr><td>Accuracy complaints sink incumbents</td><td>Disclosed factor vintage + uncertainty; Climatiq API in Phase D</td><td>Med</td></tr>
+</table>
+
+<h3>Open research questions to validate (post-launch)</h3>
+<ul>
+  <li>Does the <strong>companion/pet</strong> framing retain Indian hostel/office users better than a pure living-world? (A/B)</li>
+  <li>Optimal <strong>cadence</strong> of recurring feedback before it becomes noise.</li>
+  <li>The real high-impact action set for <strong>growth-stage</strong> users (first AC, first car, first flights).</li>
+  <li>A verification UX that adds integrity <em>without</em> re-introducing tracking fatigue.</li>
+</ul>
+
+<h2>8 · Recommended next steps (in order)</h2>
+<ol>
+  <li><strong>Ship Phase A</strong>: green build, label mocks, smoke tests, deploy, README + LinkedIn. <span class="note">(unblocks submission)</span></li>
+  <li><strong>Supabase adapter (Phase B)</strong> behind the data seam — real accounts + real social. <span class="note">(largest product jump)</span></li>
+  <li><strong>Self-comparison + weekly recap</strong> — cheap, high-retention. </li>
+  <li><strong>Gemini-vision verification (Phase C)</strong> — turns "verified" from a promise into a fact.</li>
+  <li><strong>RAG-grounded coach + AI-footprint disclosure</strong> — accuracy + credibility.</li>
+  <li><strong>Real-impact rewards</strong> — fixes the hollow-reward failure mode.</li>
+</ol>
+
+<div class="callout warn">
+  <strong>One rule to protect the score:</strong> the latest submission is the one that counts. Treat the
+  final attempt as sacred — only re-submit after the deployed link is verified working and the build is green.
+  Every new "product" feature should ship behind the data seam and keep the client-first fallback intact, so
+  the judged link can never break.
+</div>
+
+<h2>9 · Verification &amp; QA checklist</h2>
+<ul>
+  <li><code>npm run typecheck</code> · <code>npm run lint</code> · <code>npm run test:run</code> · <code>npm run build</code> — all clean.</li>
+  <li>Manual: adopt → daily ritual (with photo) → creature heals → reward opens → streak increments.</li>
+  <li>Coach: with key (live AI) and with key unset (fallback still returns sensible coaching).</li>
+  <li>A11y: keyboard-only traverse each tab; screen-reader announces world/creature state; reduced-motion honoured.</li>
+  <li>Security: grep built client bundle for the API key (must be absent); <code>.env</code> ignored, <code>.env.example</code> committed.</li>
+  <li>Deployed link opens cleanly in incognito with no console errors.</li>
+</ul>
+
+<h2>Appendix · India-localized factor anchors (disclosed vintage)</h2>
+<table>
+  <tr><th>Factor</th><th>Value</th><th>Source</th></tr>
+  <tr><td>Grid electricity</td><td>0.71 kg CO₂/kWh (FY2024-25 weighted avg)</td><td>CEA CO₂ Baseline Database</td></tr>
+  <tr><td>Food (per serving)</td><td>beef 15.5 · paneer 4.5 · chicken 1.8 · veg thali 0.7 kg</td><td>Our World in Data (Poore &amp; Nemecek)</td></tr>
+  <tr><td>Transport (per km)</td><td>car 0.17 · auto 0.11 · bus/2W 0.05 · metro 0.02 · AC train 0.008 · flight 0.15</td><td>DEFRA / Climatiq / Indian Railways</td></tr>
+  <tr><td>Context anchor</td><td>avg Indian ≈ 2.0 tCO₂/yr (~5.48 kg/day) vs US ≈ 17.6</td><td>EDGAR / IEA / WRI</td></tr>
+</table>
+<p class="note">All numbers originate in <code>lib/carbon/factors.ts</code> and are surfaced on the in-app Methodology page. The AI layer only rephrases these values; it never computes or invents emission numbers.</p>
+
+<p class="foot">Sprout · internal status &amp; roadmap · generated 17 June 2026</p>
+
+</body>
+</html>
