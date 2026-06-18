@@ -159,6 +159,18 @@ export default function MethodologyPage() {
           </ul>
         </section>
 
+        <section className="mt-10">
+          <h2 className="text-xl font-bold">Our own AI footprint</h2>
+          <p className="mt-2 text-stone-700">
+            Sprout uses AI in two narrow places: a coach that <em>rephrases</em> pre-computed numbers, and
+            on-demand photo verification. Neither runs continuously — inference happens only when you act.
+            We keep the footprint deliberately small: a lightweight Flash-class model, short prompts, one
+            image per scan, and a deterministic fallback so the app works with no AI at all. Training and
+            running large models has a real carbon cost, so the honest move is to use the smallest model
+            that does the job — and to say so.
+          </p>
+        </section>
+
         <section className="mt-10 rounded-2xl border border-stone-200 bg-white p-5">
           <h2 className="text-xl font-bold">Honest limits</h2>
           <p className="mt-2 text-stone-700">

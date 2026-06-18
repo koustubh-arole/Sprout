@@ -49,6 +49,10 @@ export const BUILDINGS: Building[] = [
   { id: "recycle", name: "Recycling Plant", emoji: "♻️", category: "waste", blurb: "Closes the loop — less landfill, less methane.", baseCost: 140, costGrowth: 1.7, maxLevel: 3, perLevel: { pollution: 5, disaster: 2, sprigsPerDay: 4 }, slot: { col: 0, row: 1 } },
   { id: "wetland", name: "Wetland Restore", emoji: "🪷", category: "nature", blurb: "Natural buffers blunt floods and storms.", baseCost: 130, costGrowth: 1.7, maxLevel: 3, perLevel: { disaster: 7, ozone: 2 }, slot: { col: 2, row: 0 } },
   { id: "water", name: "Water Reclaim", emoji: "💧", category: "water", blurb: "Resilient water supply for a warming climate.", baseCost: 120, costGrowth: 1.7, maxLevel: 3, perLevel: { disaster: 4 }, slot: { col: 0, row: 0 } },
+  { id: "bikelanes", name: "Bike Lanes", emoji: "🚲", category: "transport", blurb: "Safe lanes get cars off short trips.", baseCost: 90, costGrowth: 1.7, maxLevel: 3, perLevel: { pollution: 3 }, slot: { col: 1, row: 0 } },
+  { id: "garden", name: "Community Garden", emoji: "🌻", category: "nature", blurb: "Local food + pollinators, less in the air.", baseCost: 110, costGrowth: 1.7, maxLevel: 3, perLevel: { pollution: 2, ozone: 3, sprigsPerDay: 3 }, slot: { col: 1, row: 2 } },
+  { id: "greenroof", name: "Green Roofs", emoji: "🏡", category: "nature", blurb: "Cooler buildings, soaked-up storm water.", baseCost: 130, costGrowth: 1.7, maxLevel: 3, perLevel: { pollution: 3, disaster: 2 }, slot: { col: 2, row: 1 } },
+  { id: "compost", name: "Compost Hub", emoji: "🍂", category: "waste", blurb: "Keeps food waste out of methane-belching landfill.", baseCost: 120, costGrowth: 1.7, maxLevel: 3, perLevel: { pollution: 3, disaster: 2, sprigsPerDay: 3 }, slot: { col: 3, row: 1 } },
 ];
 
 /** The full iso grid; unused slots render as empty "build here" plots. */

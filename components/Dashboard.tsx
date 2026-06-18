@@ -8,6 +8,8 @@ import { creatureMood, getVariant, MOOD_COPY } from "@/lib/creature";
 import { SEED_POSTS, readingMinutes, type BlogPost } from "@/lib/blog";
 import { DECISIONS } from "@/lib/carbon/factors";
 import { compareToAverageDay, kgByCategory, topCategory, totalKg } from "@/lib/carbon/calc";
+import { weeklyRecap } from "@/lib/recap";
+import { DemoChip } from "./DemoChip";
 import { Adopt } from "./Adopt";
 import { Creature } from "./Creature";
 import { Village } from "./Village";
@@ -84,6 +86,8 @@ export function Dashboard() {
   const total = useMemo(() => totalKg(choices), [choices]);
   const top = useMemo(() => topCategory(choices), [choices]);
   const comparison = useMemo(() => compareToAverageDay(total), [total]);
+  const recap = useMemo(() => weeklyRecap(actions), [actions]);
+  const treesPledged = Math.floor(savedKgTotal / 21);
 
   if (!hasHydrated) {
     return (
@@ -185,6 +189,42 @@ export function Dashboard() {
           </section>
         </div>
       </div>
+
+      {/* weekly recap + real-world impact */}
+      <section className="grid gap-4 sm:grid-cols-2" aria-label="Progress and impact">
+        <div className="clay p-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-3">This week</h2>
+          <p className="mt-1">
+            <span className="font-data text-3xl font-bold text-canopy">{recap.thisWeekKg}</span>{" "}
+            <span className="text-sm text-ink-3">kg saved</span>
+          </p>
+          {recap.deltaPct === null ? (
+            <p className="mt-1 text-sm text-ink-2">Your first week — set the bar. 🌱</p>
+          ) : (
+            <p className={`mt-1 text-sm font-semibold ${recap.deltaPct >= 0 ? "text-pine" : "text-[#9a3a22]"}`}>
+              {recap.deltaPct >= 0 ? "▲" : "▼"} {Math.abs(recap.deltaPct)}% vs last week
+            </p>
+          )}
+          <p className="mt-1 text-xs text-ink-3">
+            <span className="font-data">{recap.thisWeekSprigs}</span> 🌿 earned this week
+          </p>
+        </div>
+
+        <div className="clay p-5">
+          <div className="flex items-center gap-2">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-3">Real-world impact</h2>
+            <DemoChip label="Illustrative" title="A pledge model — not yet a live planting partner." />
+          </div>
+          <p className="mt-1">
+            <span className="font-data text-3xl font-bold text-canopy">{treesPledged}</span>{" "}
+            <span className="text-sm text-ink-3">🌳 trees pledged</span>
+          </p>
+          <p className="mt-1 text-xs text-ink-2">
+            Every ~21 kg you save ≈ a tree&apos;s yearly CO₂ uptake. As Sprout grows these become real
+            plantings with a partner.
+          </p>
+        </div>
+      </section>
 
       {/* point-of-decision sandbox — the nudge lever */}
       <details className="clay p-5">

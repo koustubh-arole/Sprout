@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { data, type Friend } from "@/lib/data";
 import { useWorld } from "@/lib/store";
+import { DemoChip } from "./DemoChip";
 
 const TEMPLATES = [
   { text: "Take the metro or bus", target: 3 },
@@ -75,7 +76,9 @@ export function Pact() {
       </fieldset>
 
       <label className="mt-4 block">
-        <span className="text-xs font-semibold uppercase tracking-wide text-stone-500">Pair with a friend (optional)</span>
+        <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
+          Pair with a friend (optional) <DemoChip label="Demo friends" title="Sample friends until accounts sync (Phase B)." />
+        </span>
         <select
           value={friendId}
           onChange={(e) => setFriendId(e.target.value)}

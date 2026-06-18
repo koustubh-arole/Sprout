@@ -1,7 +1,26 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { BUILDINGS, villageLevel, type Meters } from "@/lib/village";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { BUILDINGS, totalLevels, villageLevel, type BuildingCategory, type Meters } from "@/lib/village";
+
+const CATEGORY_TINT: Record<BuildingCategory, string> = {
+  energy: "#f2c14e",
+  transport: "#6fa8dc",
+  nature: "#6cc46f",
+  waste: "#c8a26a",
+  water: "#5fb6d6",
+};
+
+const CELEBRATE = [
+  { dx: -34, dy: -46 },
+  { dx: 34, dy: -50 },
+  { dx: -50, dy: -18 },
+  { dx: 50, dy: -22 },
+  { dx: 0, dy: -58 },
+  { dx: -18, dy: -38 },
+  { dx: 18, dy: -42 },
+];
 
 const TILE_W = 92;
 const TILE_H = 48;
@@ -39,16 +58,25 @@ export function Village({
   const lvl = villageLevel(buildings);
   const builtCount = Object.values(buildings).filter((l) => l > 0).length;
 
+  // Celebrate whenever a build/upgrade raises the total level.
+  const total = totalLevels(buildings);
+  const prevTotal = useRef(total);
+  const [celebrateKey, setCelebrateKey] = useState(0);
+  useEffect(() => {
+    if (total > prevTotal.current) setCelebrateKey((k) => k + 1);
+    prevTotal.current = total;
+  }, [total]);
+
   const skyTop = lerpHex("#8fd0ff", "#b3a78d", pollution);
   const skyBottom = lerpHex("#dff1ff", "#cdbfa6", pollution);
   const grass = lerpHex("#8d9a5b", "#6cc06a", health / 100);
   const grassEdge = lerpHex("#76823f", "#4f9e3a", health / 100);
   const smog = pollution * 0.4;
 
-  const placed = new Map<string, { id: string; emoji: string; level: number }>();
+  const placed = new Map<string, { id: string; emoji: string; level: number; category: BuildingCategory }>();
   for (const b of BUILDINGS) {
     const level = buildings[b.id] ?? 0;
-    if (level > 0) placed.set(`${b.slot.col},${b.slot.row}`, { id: b.id, emoji: b.emoji, level });
+    if (level > 0) placed.set(`${b.slot.col},${b.slot.row}`, { id: b.id, emoji: b.emoji, level, category: b.category });
   }
 
   // back-to-front draw order
@@ -109,7 +137,8 @@ export function Village({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 220, damping: 18 }}
               >
-                <ellipse cx={x} cy={y + 4} rx={22} ry={9} fill="#000000" opacity={0.12} />
+                <path d={diamond(x, y, 0.72)} fill={CATEGORY_TINT[here.category]} opacity={0.85} stroke="#ffffff" strokeOpacity={0.45} strokeWidth={1} />
+                <ellipse cx={x} cy={y + 6} rx={20} ry={8} fill="#000000" opacity={0.1} />
                 <text x={x} y={y - 2} textAnchor="middle" fontSize={size} role="presentation">
                   {here.emoji}
                 </text>
@@ -123,6 +152,26 @@ export function Village({
 
           {/* smog overlay grows with pollution */}
           <rect x="0" y="0" width="480" height="340" fill="#6b5a3e" opacity={smog} />
+
+          {/* build celebration burst */}
+          <AnimatePresence>
+            {celebrateKey > 0 && (
+              <g key={celebrateKey}>
+                {CELEBRATE.map((p, i) => (
+                  <motion.circle
+                    key={i}
+                    cx={240}
+                    cy={150}
+                    r={4}
+                    fill={i % 2 ? "#1fae6e" : "#f2a93b"}
+                    initial={{ opacity: 0.95, x: 0, y: 0 }}
+                    animate={{ opacity: 0, x: p.dx, y: p.dy }}
+                    transition={{ duration: reduce ? 0 : 0.9, ease: "easeOut" }}
+                  />
+                ))}
+              </g>
+            )}
+          </AnimatePresence>
         </svg>
 
         {/* corner badge */}
